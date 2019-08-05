@@ -76,7 +76,7 @@ def Login(url):
     #cursor.execute(connection_string)
 
     connection_string = "INSERT INTO SUNNY_PORTAL_STRING (_datetime, html_str) VALUES (%s, '%s')" %  (timestamp_format, data_list_string)
-    return (connection_string)
+    print (connection_string)
 
 
 
