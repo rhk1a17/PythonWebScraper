@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f056ab81-c2a9-4ab5-9853-3c5cba760d66</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PythonWebScraper.py</StartupFile>
+    <StartupFile>PythonWebScraper_v2.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,6 +23,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="PythonWebScraper_v2.py" />
     <Compile Include="PythonWebScraper.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

@@ -50,34 +50,22 @@ def Login(url):
 
     # parser the web content
     soup = BeautifulSoup(res, 'html.parser')
-    data_list = soup.find_all('div',{'class':'mainValue'})
+    #data_list = soup.find_all('div',{'class':'mainValue'})
+    data_list = soup.find_all('div',{'id':'TabSwitchDeviceSelectionContent2'})
     data_list_string = ""
     for string in data_list:
         data_list_string += str(string)
+    data_list_string = data_list_string.split("'")
+    final_string = ""
+    for ele in data_list_string:
+        final_string += ele + "''"
     
-    #TIMESTAMP
-    timestamp = data_list[0]
-    timestamp = str(timestamp).split("\n")
-    timestamp = timestamp[3]
-    timestamp = timestamp.split("data-timestamp")
-    timestamp = timestamp[1][2:21] 
-    #MM/dd/YYYY
-    timestamp_format = "'" + timestamp + "'"
+    ##TIMESTAMP
+    timestamp = final_string.split("data-timestamp")
+    timestamp = timestamp[1]
+    timestamp = timestamp[2:21]
 
-    #SQL START
-    #server = "sqlsever-ers.database.windows.net"
-    #database = "inverterDB"
-    #username = "ers"
-    #password = "testing123#"
-    #driver = '{ODBC Driver 17 for SQL Server}'
-    #cnxn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password)
-    #cursor = cnxn.cursor()
-    #connection_string = "INSERT INTO SUNNY_PORTAL_STRING (_datetime, html_str) VALUES (%s, '%s')" %  (timestamp_format, data_list_string)
-    #cursor.execute(connection_string)
-
-    connection_string = "INSERT INTO SUNNY_PORTAL_STRING (_datetime, html_str) VALUES (%s, '%s')" %  (timestamp_format, data_list_string)
+    connection_string = "INSERT INTO SUNNY_PORTAL_STRING (_datetime, html_str) VALUES ('%s', '%s')" %  (timestamp, final_string)
     print (connection_string)
-
-
 
 Login("https://www.sunnyportal.com/RedirectToPlant/50f57782-7818-40b9-8455-72d2a96ae8ea")
