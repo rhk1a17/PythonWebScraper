@@ -122,7 +122,6 @@ def scrapeSunnyPortal(url):
     cap_list = soup.find_all('div', {'data-name':'plantInfo'})
     cap = str(cap_list[0]).split("<strong>")
     cap = (str(cap[1]).split('<'))[0]
-    print(cap)
 
     #GRAPH URL 
     graph_list = soup.find_all('img', {'id':'ctl00$ContentPlaceHolder1$UserControlShowDashboard1$UserControlShowEnergyAndPower1$_diagram'})
