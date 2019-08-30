@@ -118,6 +118,12 @@ def scrapeSunnyPortal(url):
     now = datetime.now()
     real_datetime = now.strftime("%Y-%m-%dT%H:%M:%S")
 
+    #CAPACITY
+    cap_list = soup.find_all('div', {'data-name':'plantInfo'})
+    cap = str(cap_list[0]).split("<strong>")
+    cap = (str(cap[1]).split('<'))[0]
+    print(cap)
+
     #GRAPH URL 
     graph_list = soup.find_all('img', {'id':'ctl00$ContentPlaceHolder1$UserControlShowDashboard1$UserControlShowEnergyAndPower1$_diagram'})
     graph = str(graph_list[0]).split("src=\"")
@@ -132,7 +138,7 @@ def scrapeSunnyPortal(url):
         with open(filename, 'wb') as file:
             file.write(element.screenshot_as_png)
 
-    connection_string = "INSERT INTO SUNNY_PORTAL_STRING (_datetime, title, current_power, power_unit, energy_today, energy_unit,total_energy, total_energy_unit, co2today, co2_unit, real_datetime) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" %  (timestamp, title, power, powerUnit, pvToday, pvTodayUnit,totalEnergy,totalEnergyUnit, co2today, co2todayUnit, real_datetime)
+    connection_string = "INSERT INTO SUNNY_PORTAL_STRING (_datetime, title, current_power, power_unit, energy_today, energy_unit,total_energy, total_energy_unit, co2today, co2_unit, real_datetime, capacity) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" %  (timestamp, title, power, powerUnit, pvToday, pvTodayUnit,totalEnergy,totalEnergyUnit, co2today, co2todayUnit, real_datetime, cap)
     output_list.append(connection_string)
     time.sleep(2);
 
@@ -238,6 +244,9 @@ def SemsPortalScrape(url):
 LoginSunnyPortal()
 
 scrapeSunnyPortal("https://www.sunnyportal.com/RedirectToPlant/50f57782-7818-40b9-8455-72d2a96ae8ea")#TCMA 1MWp
+scrapeSunnyPortal("https://www.sunnyportal.com/RedirectToPlant/f3dc9332-e74e-466c-b687-b3c242ecb270")#NK Energy 0.99MWp Solar Farm
+scrapeSunnyPortal("https://www.sunnyportal.com/RedirectToPlant/178d8475-a9f3-4d2c-aef5-ec31ecd7025e")#Maran Road Sawmill - 500kWp
+scrapeSunnyPortal("https://www.sunnyportal.com/RedirectToPlant/f26889bb-d497-46bf-9d68-a5a786a5fb22")#Maran Road Sawmill NEM
 scrapeSunnyPortal("https://www.sunnyportal.com/RedirectToPlant/3f17f707-e670-4963-884c-7282e141e197")#Toyo Tires Manufacturing (M)
 scrapeSunnyPortal("https://www.sunnyportal.com/RedirectToPlant/89a6e79c-9bd1-41b4-8100-57026f970ca6")#Choo Lay Khuan 5kWp
 scrapeSunnyPortal("https://www.sunnyportal.com/RedirectToPlant/36480a1e-ea06-46a4-bb51-076de928dec3")#Nasharuddin 2017
@@ -329,4 +338,4 @@ browser.quit()
 #browser.quit()
 
 #======================================SEMS PORTAL SCRAPE END====================================
-print (output_list)
+#print (output_list)
